@@ -1,0 +1,13 @@
+sports_management_system/
+├── app.py                # Main Flask application file
+├── templates/            # HTML templates
+│   ├── base.html         # Base layout (common elements like header, footer)
+│   ├── home.html         # Home page
+│   ├── students.html     # Manage Students page
+│   ├── meetings.html     # Manage Sports Meetings page
+│   ├── events.html       # Manage Events page
+│   ├── matches.html      # Manage Matches page
+│   ├── records.html      # Manage Records page
+│   ├── judges.html       # Manage Judges page
+│   ├── suspensions.html  # Manage Suspensions page         
+├── requirements.txt      # Python dependencies file

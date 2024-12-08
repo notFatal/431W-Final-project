@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block title %}Manage Students{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="text-center">Student Management</h1>
+
+        <!-- Display Add New Student Form or Update Form -->
+        {% if student is not none %}
+        <!-- Update Student Form -->
+        <h3>Update Student</h3>
+        <form action="/students/update/{{ student[0] }}" method="POST">
+            <div class="form-group">
+                <label for="firstname">First Name</label>
+                <input type="text" class="form-control" name="firstname" value="{{ student[1] }}" required>
+            </div>
+            <div class="form-group">
+                <label for="nationality">Nationality</label>
+                <input type="text" class="form-control" name="nationality" value="{{ student[2] }}" required>
+            </div>
+            <div class="form-group">
+                <label for="dateofbirth">Date of Birth</label>
+                <input type="date" class="form-control" name="dateofbirth" value="{{ student[3] }}" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Update Student</button>
+        </form>
+        {% else %}
+        <!-- Add New Student Form -->
+        <h3>Add New Student</h3>
+        <form action="/students" method="POST">
+            <div class="form-group">
+                <label for="firstname">First Name</label>
+                <input type="text" class="form-control" name="firstname" required>
+            </div>
+            <div class="form-group">
+                <label for="nationality">Nationality</label>
+                <input type="text" class="form-control" name="nationality" required>
+            </div>
+            <div class="form-group">
+                <label for="dateofbirth">Date of Birth</label>
+                <input type="date" class="form-control" name="dateofbirth" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Student</button>
+        </form>
+        {% endif %}
+
+        <hr>
+
+        <!-- Display All Students -->
+        <h3>Student List</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>SID</th>
+                    <th>First Name</th>
+                    <th>Nationality</th>
+                    <th>Date of Birth</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                <tr>
+                    <td>{{ student[0] }}</td>
+                    <td>{{ student[1] }}</td>
+                    <td>{{ student[2] }}</td>
+                    <td>{{ student[3] }}</td>
+                    <td>
+                        <!-- Update Button -->
+                        <a href="/students/update/{{ student[0] }}" class="btn btn-warning">Update</a>
+                        <!-- Delete Button -->
+                        <a href="/students/delete/{{ student[0] }}" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

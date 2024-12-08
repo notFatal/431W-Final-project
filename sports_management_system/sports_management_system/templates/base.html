@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports Management System</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+ 
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">Sports Management</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="/students"> Students</a></li>
+                <li class="nav-item"><a class="nav-link" href="/meetings"> Meetings</a></li>
+                <li class="nav-item"><a class="nav-link" href="/events"> Events</a></li>
+                <li class="nav-item"><a class="nav-link" href="/matches"> Matches</a></li>
+                <li class="nav-item"><a class="nav-link" href="/records"> Records</a></li>
+                <li class="nav-item"><a class="nav-link" href="/judges"> Judges</a></li>
+                <li class="nav-item"><a class="nav-link" href="/suspensions"> Suspensions</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container mt-4">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <p>&copy; 2024 Sports Management System</p>
+    </footer>
+</body>
+</html>

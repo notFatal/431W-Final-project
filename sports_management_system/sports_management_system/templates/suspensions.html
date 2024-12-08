@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block title %}Manage Suspensions{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-center">Suspension Management</h1>
+
+    {% if suspension is not none %}
+    <!-- Update Suspension Form -->
+    <h3>Update Suspension</h3>
+    <form action="/suspensions/update/{{ suspension[0] }}" method="POST">
+        <div class="form-group">
+            <label for="sid">Student ID</label>
+            <input type="text" class="form-control" name="sid" value="{{ suspension[1] }}" required>
+        </div>
+        <div class="form-group">
+            <label for="details">Details</label>
+            <textarea class="form-control" name="details" required>{{ suspension[4] }}</textarea>
+        </div>
+        <div class="form-group">
+            <label for="startdate">Start Date</label>
+            <input type="date" class="form-control" name="startdate" value="{{ suspension[5] }}" required>
+        </div>
+        <div class="form-group">
+            <label for="enddate">End Date</label>
+            <input type="date" class="form-control" name="enddate" value="{{ suspension[6] }}" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Update Suspension</button>
+    </form>
+    {% else %}
+    <!-- Add New Suspension Form -->
+    <h3>Add New Suspension</h3>
+    <form action="/suspensions" method="POST">
+        <div class="form-group">
+            <label for="sid">Student ID</label>
+            <input type="text" class="form-control" name="sid" required>
+        </div>
+        <div class="form-group">
+            <label for="details">Details</label>
+            <textarea class="form-control" name="details" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="startdate">Start Date</label>
+            <input type="date" class="form-control" name="startdate" required>
+        </div>
+        <div class="form-group">
+            <label for="enddate">End Date</label>
+            <input type="date" class="form-control" name="enddate" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Add Suspension</button>
+    </form>
+    {% endif %}
+
+    <hr>
+
+    <!-- Display All Suspensions -->
+    <h3>Suspension List</h3>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Student Name</th>
+                <th>Nationality</th>
+                <th>Details</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for suspension in suspensions %}
+            <tr>
+                <td>{{ suspension[0] }}</td>
+                <td>{{ suspension[1] }}</td>
+                <td>{{ suspension[2] }}</td>
+                <td>{{ suspension[3] }}</td>
+                <td>{{ suspension[4] }}</td>
+                <td>{{ suspension[5] }}</td>
+                <td>
+                    <a href="/suspensions/update/{{ suspension[0] }}" class="btn btn-warning btn-sm">Update</a>
+                    <form action="/suspensions/delete/{{ suspension[0] }}" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block title %}Manage Judges{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="text-center">Judge Management</h1>
+
+        <!-- Display Add New Judge Form or Update Form -->
+        {% if judge is not none %}
+        <!-- Update Judge Form -->
+        <h3>Update Judge</h3>
+        <form action="/judges/update/{{ judge[0] }}" method="POST">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" name="name" value="{{ judge[1] }}" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" name="email" value="{{ judge[2] }}" required>
+            </div>
+            <div class="form-group">
+                <label for="phonenumber">Phone Number</label>
+                <input type="text" class="form-control" name="phonenumber" value="{{ judge[3] }}" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Update Judge</button>
+        </form>
+        {% else %}
+        <!-- Add New Judge Form -->
+        <h3>Add New Judge</h3>
+        <form action="/judges" method="POST">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="phonenumber">Phone Number</label>
+                <input type="text" class="form-control" name="phonenumber" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Judge</button>
+        </form>
+        {% endif %}
+
+        <hr>
+
+        <!-- Display All Judges -->
+        <h3>Judge List</h3>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for judge in judges %}
+                <tr>
+                    <td>{{ judge[0] }}</td>
+                    <td>{{ judge[1] }}</td>
+                    <td>{{ judge[2] }}</td>
+                    <td>{{ judge[3] }}</td>
+                    <td>
+                        <!-- Update Button -->
+                        <a href="/judges/update/{{ judge[0] }}" class="btn btn-warning btn-sm">Update</a>
+                        <!-- Delete Button -->
+                        <form action="/judges/delete/{{ judge[0] }}" method="POST" style="display:inline;">
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

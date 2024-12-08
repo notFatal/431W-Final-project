@@ -1,0 +1,3 @@
+Flask
+flask-bootstrap
+mysql-connector-python

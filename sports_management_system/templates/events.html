@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+
+{% block title %}Manage Events{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-center">Event Management</h1>
+
+    <!-- Display Add New Event Form or Update Form -->
+    {% if event is not none %}
+    <!-- Update Event Form -->
+    <h3>Update Event</h3>
+<form action="/events/update/{{ event[0] }}" method="POST">
+    <div class="form-group">
+        <label for="eventname">Event Name</label>
+        <input type="text" class="form-control" name="eventname" value="{{ event[1] }}" required>
+    </div>
+    <div class="form-group">
+        <label for="startdate">Start Date</label>
+        <input type="date" class="form-control" name="startdate" value="{{ event[3] }}" required>
+    </div>
+    <div class="form-group">
+        <label for="enddate">End Date</label>
+        <input type="date" class="form-control" name="enddate" value="{{ event[4] }}" required>
+    </div>
+    <div class="form-group">
+        <label for="smid">Sports Meeting</label>
+        <select class="form-control" name="smid" required>
+            {% for sm in sport_meetings %}
+                <option value="{{ sm[0] }}" {% if sm[0] == event[2] %}selected{% endif %}>{{ sm[1] }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Update Event</button>
+</form>
+<!-- Update Event Form -->
+<h3>Update Event</h3>
+<form action="/events/update/{{ event[0] }}" method="POST">
+    <div class="form-group">
+        <label for="eventname">Event Name</label>
+        <input type="text" class="form-control" name="eventname" value="{{ event[1] }}" required>
+    </div>
+    <div class="form-group">
+        <label for="startdate">Start Date</label>
+        <input type="date" class="form-control" name="startdate" value="{{ event[3] }}" required>
+    </div>
+    <div class="form-group">
+        <label for="enddate">End Date</label>
+        <input type="date" class="form-control" name="enddate" value="{{ event[4] }}" required>
+    </div>
+    <div class="form-group">
+        <label for="smid">Sports Meeting</label>
+        <select class="form-control" name="smid" required>
+            {% for sm in sport_meetings %}
+                <option value="{{ sm[0] }}" {% if sm[0] == event[2] %}selected{% endif %}>{{ sm[1] }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Update Event</button>
+</form>
+
+
+    {% else %}
+    <!-- Add New Event Form -->
+    <h3>Add New Event</h3>
+<form action="/events" method="POST">
+    <div class="form-group">
+        <label for="eventname">Event Name</label>
+        <input type="text" class="form-control" name="eventname" required>
+    </div>
+    <div class="form-group">
+        <label for="startdate">Start Date</label>
+        <input type="date" class="form-control" name="startdate" required>
+    </div>
+    <div class="form-group">
+        <label for="enddate">End Date</label>
+        <input type="date" class="form-control" name="enddate" required>
+    </div>
+    <div class="form-group">
+        <label for="smid">Sports Meeting</label>
+        <select class="form-control" name="smid" required>
+            {% for sm in sport_meetings %}
+                <option value="{{ sm[0] }}">{{ sm[1] }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Event</button>
+</form>
+
+    {% endif %}
+
+    <hr>
+
+    <!-- Display All Events -->
+    <h3>Event List</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Event ID</th>
+                <th>Event Name</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Sports Meeting</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if events %}
+                {% for event in events %}
+                <tr>
+                    <td>{{ event[0] }}</td>
+                    <td>{{ event[1] }}</td>
+                    <td>{{ event[3] }}</td>
+                    <td>{{ event[4] }}</td>
+                    <td>{{ event[5] }}</td>  <!-- Displaying the sports meeting name -->
+                    <td>
+                        <a href="/events/update/{{ event[0] }}" class="btn btn-warning">Update</a>
+                        <a href="/events/delete/{{ event[0] }}" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="6" class="text-center">No events found.</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+
+</div>
+{% endblock %}
